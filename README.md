@@ -13,10 +13,21 @@ Also feel free to make a PR.
 - Menu for taking off clothes
   - Context menu
   - Radial menu
+- Torso and arm clipping fix
+- Option to fix mask and hat clipping issues
+  - Whitelist / blacklist for certain IDs
+- Functional gear (Night vision, etc..)
+- Special clothing/outfits
+- Outfit renaming
+- Tearing clothes
+- Commands for faster usage
+- Localization
+- Customizable notifications
  
 ## Dependencies
 - [ox_lib](https://github.com/overextended/ox_lib)
 - [ox_inventory](https://github.com/overextended/ox_inventory)
+- esx_skin / fivem-appearance / illenium-appearance / qb-clothing
 
 ## Installation
 1. Download latest release or source code
@@ -26,5 +37,10 @@ Also feel free to make a PR.
 5. Restart the server
 
 ## Exports (client)
+- `isWearingOutfit(name)` - returns outfit name and outfit label or false
+- `isWearing(index)` - returns component and texture or false
+- `isWearingProp(index)` - returns prop and texture or false
+- `isNaked()` - returns true if player doesn't have any clothes based on the config
+- `getPedSex(ped)` - returns 'Male' or 'Female' regarding the ped gender
 
 ## Exports (server)
