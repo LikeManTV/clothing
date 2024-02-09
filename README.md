@@ -9,6 +9,7 @@ Please report any problems by creating a new issue or join the Discord server.
 Also feel free to make a PR.
 
 ## Features
+- Supports ESX & QB
 - Clothes as items (using metadata)
 - Menu for taking off clothes
   - Context menu
