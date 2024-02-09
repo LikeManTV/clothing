@@ -27,7 +27,7 @@ Also feel free to make a PR.
 ## Dependencies
 - [ox_lib](https://github.com/overextended/ox_lib)
 - [ox_inventory](https://github.com/overextended/ox_inventory)
-- esx_skin / fivem-appearance / illenium-appearance / qb-clothing
+- esx_skin & skinchanger / [fivem-appearance](https://github.com/pedr0fontoura/fivem-appearance) / [illenium-appearance](https://github.com/iLLeniumStudios/illenium-appearance) / [qb-clothing](https://github.com/qbcore-framework/qb-clothing)
 
 ## Installation
 1. Download latest release or source code
