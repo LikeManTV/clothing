@@ -19,6 +19,7 @@ Also feel free to make a PR.
   - Whitelist / blacklist for certain IDs
 - Functional gear (Night vision, etc..)
 - Special clothing/outfits
+  - Give certain clothing proofs such as fire-proof
 - Outfit renaming
 - Tearing clothes
 - Commands for faster usage
