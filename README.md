@@ -9,14 +9,13 @@ Please report any problems by creating a new issue or join the Discord server.
 Also feel free to make a PR.
 
 ## Features
-- Supports ESX & QB
+- Supports ESX, QB & OX_CORE
 - Clothes as items (using metadata)
 - Menu for taking off clothes
   - Context menu
   - Radial menu
-- Torso and arm clipping fix
 - Option to fix mask and hat clipping issues
-  - Whitelist / blacklist for certain IDs
+  - Whitelist / blacklist for certain IDs (WIP)
 - Functional gear (Night vision, etc..)
 - Special clothing/outfits
   - Give certain clothing proofs such as fire-proof
