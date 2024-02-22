@@ -1,6 +1,6 @@
 Config = {}
 
-Config.Language = 'cs' -- Select your language here. [en / cs]
+Config.Language = 'en' -- Select your language here. [en / cs]
 Config.MenuKey = false -- Configure the default key to open clothing menu (false to disable).
 Config.UseRadial = false -- If true the radial menu will be used otherwise the context menu.
 
