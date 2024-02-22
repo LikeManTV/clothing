@@ -37,6 +37,35 @@ Also feel free to make a PR.
 4. Add `ensure clothing` to your server.cfg
 5. Restart the server
 
+## Required Items
+```
+	['clothes'] = {
+		label = 'Oblečení',
+		weight = 100,
+		stack = false,
+		allowArmed = false,
+		client = {
+			export = 'clothing.clothes'
+		}
+	},
+
+	['outfit'] = {
+		label = 'Outfit',
+		stack = false,
+		client = {
+			export = 'clothing.clothes'
+		},
+		buttons = {
+			{
+				label = 'Přejmenovat',
+				action = function(slot)
+					TriggerServerEvent('clothing:sv:renameOutfit', slot)
+				end
+			}
+        }
+	},
+```
+
 ## Exports (client)
 - `isWearingOutfit(name)` - returns outfit name and outfit label or false
 - `isWearing(index)` - returns component and texture or false
