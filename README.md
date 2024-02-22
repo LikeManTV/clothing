@@ -40,7 +40,7 @@ Also feel free to make a PR.
 ## Required Items
 ```
 	['clothes'] = {
-		label = 'Oblečení',
+		label = 'Clothes',
 		weight = 100,
 		stack = false,
 		allowArmed = false,
