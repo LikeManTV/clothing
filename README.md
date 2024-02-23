@@ -57,7 +57,7 @@ Also feel free to make a PR.
 		},
 		buttons = {
 			{
-				label = 'Přejmenovat',
+				label = 'Rename',
 				action = function(slot)
 					TriggerServerEvent('clothing:sv:renameOutfit', slot)
 				end
