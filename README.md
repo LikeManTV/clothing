@@ -3,7 +3,7 @@
 [![GitHub license](https://img.shields.io/github/license/LikeManTV/clothing.svg)](LICENSE)
 <a href="https://discordapp.com/invite/55aQNKzQVW" title="Chat on Discord"><img alt="Discord Status" src="https://discordapp.com/api/guilds/912329245789933569/widget.png"></a>
 
-A clothing system for FiveM.
+The system allows for easy management of clothing using items, enabling players to store and organize their acquired pieces of clothing for quick access and outfit changes. It ensures that players have a convenient way of changing and combining their clothes within the game.
 
 Please report any problems by creating a new issue or join the Discord server.
 Also feel free to make a PR.
