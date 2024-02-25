@@ -8,7 +8,7 @@ The system allows for easy management of clothing using items, enabling players 
 Please report any problems by creating a new issue or join the Discord server.
 Also feel free to make a PR.
 
-## Features
+## 🔥 Features
 - Supports ESX, QB & OX_CORE
 - Clothes as items (using metadata)
 - Menu for taking off clothes
@@ -25,12 +25,12 @@ Also feel free to make a PR.
 - Localization
 - Customizable notifications
  
-## Dependencies
+## 🛠️ Dependencies
 - [ox_lib](https://github.com/overextended/ox_lib)
 - [ox_inventory](https://github.com/overextended/ox_inventory)
 - esx_skin & skinchanger / [fivem-appearance](https://github.com/pedr0fontoura/fivem-appearance) / [illenium-appearance](https://github.com/iLLeniumStudios/illenium-appearance) / [qb-clothing](https://github.com/qbcore-framework/qb-clothing)
 
-## Installation
+## 📲 Installation
 1. Download latest release or source code
 2. Extract the .zip file
 3. Copy the folder to your server resources folder
@@ -66,11 +66,11 @@ Also feel free to make a PR.
 	},
 ```
 
-## Exports (client)
+## 📝 Exports (client)
 - `isWearingOutfit(name)` - returns outfit name and outfit label or false
 - `isWearing(index)` - returns component and texture or false
 - `isWearingProp(index)` - returns prop and texture or false
 - `isNaked()` - returns true if player doesn't have any clothes based on the config
 - `getPedSex(ped)` - returns 'Male' or 'Female' regarding the ped gender
 
-## Exports (server)
+## 📝 Exports (server)
