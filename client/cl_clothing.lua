@@ -103,7 +103,7 @@ for i = 1, 10 do
                 title = _L(data.title),
                 icon = data.icon,
                 onSelect = function()
-                    TriggerEvent('clothing:cl:handleProps', {index = i})
+                    TriggerEvent('clothing:cl:handleClothes', {index = i})
                 end
             }
         end
