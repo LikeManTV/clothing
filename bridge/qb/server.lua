@@ -5,7 +5,7 @@ function getPlayerName(playerId)
     local player = QBCore.Functions.GetPlayer(playerId)
 
 	if player then
-		return player.firstName .. ' ' .. player.lastName
+		return player.firstname .. ' ' .. player.lastname
 	end
 
 	return GetPlayerName(playerId)
