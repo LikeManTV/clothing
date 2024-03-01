@@ -5,7 +5,7 @@
 
 The system allows for easy management of clothing using items, enabling players to store and organize their acquired pieces of clothing for quick access and outfit changes. It ensures that players have a convenient way of changing and combining their clothes within the game.
 
-Please report any problems by creating a new issue or join the Discord server.
+Please report any problems by creating a new issue or join the Discord server.<br/>
 Also feel free to make a PR.
 
 ## 🔥 Features
