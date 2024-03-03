@@ -5,7 +5,7 @@ function getPlayerName(playerId)
     local player = ESX.GetPlayerFromId(playerId)
 
 	if player then
-		return player.firstName .. ' ' .. player.lastName
+		return player.getName()
 	end
 
 	return GetPlayerName(playerId)
