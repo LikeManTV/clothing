@@ -5,7 +5,6 @@ local inventory = exports.ox_inventory
 
 RegisterServerEvent('clothing:sv:giveOutfit', function(data, outfit)
     local source = source
-    local name = getPlayerName(source)
     local gender = data.sex == 'Male' and _L('male_outfit') or _L('female_outfit')
     local metadata = {label = _L('default_outfit_label'), part = 'outfit', image = 'outfit', sex = data.sex, description = string.format('%s', gender)}
 
@@ -14,6 +13,7 @@ RegisterServerEvent('clothing:sv:giveOutfit', function(data, outfit)
     end
 
     if Config.CreatedByDesc then
+        local name = getPlayerName(source)
         metadata['description'] = string.format('%s  \n%s', gender, _L('created_by')..' '..name)
     end
 
@@ -43,11 +43,11 @@ end)
 
 RegisterServerEvent('clothing:sv:giveTorso', function(data)
     local source = source
-    local name = getPlayerName(source)
     local gender = data.sex == 'Male' and _L('male_clothes') or _L('female_clothes')
     local metadata = {label = _L('top_label'), part = 'torso', image = 'shirt', sex = data.sex, description = string.format('%s', gender)}
 
     if Config.CreatedByDesc then
+        local name = getPlayerName(source)
         metadata['description'] = string.format('%s  \n%s', gender, _L('created_by')..' '..name)
     end
     
@@ -65,11 +65,11 @@ end)
 
 RegisterServerEvent('clothing:sv:giveClothes', function(data)
     local source = source
-    local name = getPlayerName(source)
     local gender = data.sex == 'Male' and _L('male_clothes') or _L('female_clothes')
     local metadata = {part = 'clothes', sex = data.sex, description = string.format('%s', gender), index = data.index, drawable = data.drawable, texture = data.texture}
 
     if Config.CreatedByDesc then
+        local name = getPlayerName(source)
         metadata['description'] = string.format('%s  \n%s', gender, _L('created_by')..' '..name)
     end
 
@@ -98,11 +98,11 @@ end)
 
 RegisterServerEvent('clothing:sv:giveProp', function(data)
     local source = source
-    local name = getPlayerName(source)
     local gender = data.sex == 'Male' and _L('male_prop') or _L('female_prop')
     local metadata = {part = 'prop', sex = data.sex, description = string.format('%s', gender), index = data.index, drawable = data.drawable, texture = data.texture}
 
     if Config.CreatedByDesc then
+        local name = getPlayerName(source)
         metadata['description'] = string.format('%s  \n%s', gender, _L('created_by')..' '..name)
     end
 
