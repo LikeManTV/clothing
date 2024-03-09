@@ -9,7 +9,7 @@ Please report any problems by creating a new issue or join the Discord server.<b
 Also feel free to make a PR.
 
 ## 🔥 Features
-- Supports ESX, QB & OX_CORE
+- Supports ESX, QB & OX
 - Clothes as items (using metadata)
 - Menu for taking off clothes
   - Context menu
@@ -37,7 +37,7 @@ Also feel free to make a PR.
 4. Add `ensure clothing` to your server.cfg
 5. Restart the server
 
-## Required Items
+## 📌 Required Items
 ```
 	['clothes'] = {
 		label = 'Clothes',
