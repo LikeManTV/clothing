@@ -107,6 +107,8 @@ clothing = {
         local gender = utils.getPedSex(cache.ped)
 
         if type == 'outfit' then
+            local hair = GetPedDrawableVariation(cache.ped, 2)
+            local hairTexture = GetPedTextureVariation(cache.ped, 2)
             local outfitData = {
                 sex = gender,
                 outfit = {
@@ -151,6 +153,7 @@ clothing = {
                 clothing.setDefaultPropVariation({ isAnimated = false, sex = gender, index = 0 })
                 clothing.setDefaultPropVariation({ isAnimated = false, sex = gender, index = 1 })
                 clothing.setDefaultPropVariation({ isAnimated = false, sex = gender, index = 2 })
+                SetPedComponentVariation(cache.ped, 2, hair, hairTexture, 0)
                 TriggerServerEvent("clothing:sv:giveOutfit", outfitData, outfitLabel)
             else
                 notify(_L('error_no_clothes'), "error")  
@@ -187,7 +190,6 @@ clothing = {
                 else
                     clothing.setDefaultVariation({ isAnimated = false, sex = gender, index = 3 })
                 end
-
                 TriggerServerEvent("clothing:sv:giveTorso", torsoData)
             else
                 notify(_L('error_no_clothes'), "error")  
