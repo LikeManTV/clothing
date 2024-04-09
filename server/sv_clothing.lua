@@ -111,7 +111,7 @@ RegisterServerEvent('clothing:sv:giveProp', function(data)
     end
 
     local items = {
-        [0] = { label = _L('mask_label'), image = 'hat' },
+        [0] = { label = _L('hat_label'), image = 'hat' },
         [1] = { label = _L('glasses_label'), image = 'glasses' },
         [2] = { label = _L('pants_label'), image = 'ears' }
     }
