@@ -61,39 +61,39 @@ Config.Menu = {
         enabled = true, -- Enable or disable category.
         options = { -- You can toggle individual buttons here.
             [1] = { -- mask
-                title = 'take_off_mask',
+                title = 'mask_label',
                 icon = 'masks-theater'
             },
             [3] = { -- gloves
-                title = 'take_off_gloves',
+                title = 'gloves_label',
                 icon = 'mitten'
             },
             [4] = { -- pants
-                title = 'take_off_pants',
+                title = 'pants_label',
                 icon = 'socks'
             },
             [5] = { -- Will not work if Config.AutomaticBackpack is enabled.
-                title = 'take_off_backpack',
+                title = 'backpack_label',
                 icon = 'briefcase'
             },
             [6] = { -- shoes
-                title = 'take_off_shoes',
+                title = 'shoes_label',
                 icon = 'shoe-prints'
             },
             [7] = { -- accessory
-                title = 'take_off_chain',
+                title = 'chain_label',
                 icon = 'ring'
             },
             [8] = { -- top
-                title = 'take_off_top',
+                title = 'top_label',
                 icon = 'shirt'
             },
             [9] = { -- vest
-                title = 'take_off_vest',
+                title = 'vest_label',
                 icon = 'vest'
             },
             [10] = { -- decals
-                title = 'take_off_badges',
+                title = 'badges_label',
                 icon = 'id-badge'
             },
         }
@@ -103,15 +103,23 @@ Config.Menu = {
         enabled = true, -- Enable or disable category.
         options = { -- You can toggle individual buttons here.
             [0] = { -- hat
-                title = 'take_off_hat',
+                title = 'hat_label',
                 icon = 'hat-cowboy'
             },
             [1] = { -- glasses
-                title = 'take_off_glasses',
+                title = 'glasses_label',
                 icon = 'glasses'
             },
             [2] = { -- ear accessory
-                title = 'take_off_earrings',
+                title = 'earrings_label',
+                icon = 'ear-deaf'
+            },
+            [6] = { -- watch
+                title = 'watch_label',
+                icon = 'ear-deaf'
+            },
+            [7] = { -- bracelet
+                title = 'bracelet_label',
                 icon = 'ear-deaf'
             },
         }
