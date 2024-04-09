@@ -114,6 +114,8 @@ RegisterServerEvent('clothing:sv:giveProp', function(data)
         [0] = { label = _L('hat_label'), image = 'hat' },
         [1] = { label = _L('glasses_label'), image = 'glasses' },
         [2] = { label = _L('pants_label'), image = 'ears' }
+        [6] = { label = _L('watch_label'), image = 'watch' }
+        [7] = { label = _L('bracelet_label'), image = 'bracelet' }
     }
     local mapping = items[data.index]
 

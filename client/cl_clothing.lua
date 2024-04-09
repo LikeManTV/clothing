@@ -133,6 +133,26 @@ for i = 0, 2 do
         end
     end
 end
+for i = 6, 7 do
+    local data = propData[i]
+    if data then
+        if Config.UseRadial then
+            pOptions[#pOptions+1] = {
+                label = _L(data.title),
+                icon = data.icon,
+                event = 'clothing:cl:handleProps',
+                args = {index = i}
+            }
+        else
+            pOptions[#pOptions+1] = {
+                title = _L(data.title),
+                icon = data.icon,
+                event = 'clothing:cl:handleProps',
+                args = {index = i}
+            }
+        end
+    end
+end
 
 if Config.UseRadial then
     lib.registerRadial({
@@ -209,6 +229,8 @@ if Config.EnableCommands then
     RegisterCommand('hat', function() TriggerEvent('clothing:cl:handleProps', {index = 0}) end)
     RegisterCommand('glasses', function() TriggerEvent('clothing:cl:handleProps', {index = 1}) end)
     RegisterCommand('earrings', function() TriggerEvent('clothing:cl:handleProps', {index = 2}) end)
+    RegisterCommand('watch', function() TriggerEvent('clothing:cl:handleProps', {index = 6}) end)
+    RegisterCommand('bracelet', function() TriggerEvent('clothing:cl:handleProps', {index = 7}) end)
 end
 
 -- █▀▀ █░█ █▀▀ █▄░█ ▀█▀ █▀
