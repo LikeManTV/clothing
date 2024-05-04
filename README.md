@@ -15,7 +15,7 @@ Also feel free to make a PR.
   - Context menu
   - Radial menu
 - Option to fix mask and hat clipping issues
-  - Whitelist / blacklist for certain IDs (WIP)
+  - Whitelist / blacklist for certain IDs
 - Functional gear (Night vision, etc..)
 - Special clothing/outfits
   - Give certain clothing proofs such as fire-proof
@@ -39,31 +39,31 @@ Also feel free to make a PR.
 
 ## 📌 Required Items
 ```
-	['clothes'] = {
-		label = 'Clothes',
-		weight = 100,
-		stack = false,
-		allowArmed = false,
-		client = {
-			export = 'clothing.clothes'
-		}
-	},
+['clothes'] = {
+	label = 'Clothes',
+	weight = 100,
+	stack = false,
+	allowArmed = false,
+	client = {
+		export = 'clothing.clothes'
+	}
+},
 
-	['outfit'] = {
-		label = 'Outfit',
-		stack = false,
-		client = {
-			export = 'clothing.clothes'
-		},
-		buttons = {
-			{
-				label = 'Rename',
-				action = function(slot)
-					TriggerServerEvent('clothing:sv:renameOutfit', slot)
-				end
-			}
-        }
+['outfit'] = {
+	label = 'Outfit',
+	stack = false,
+	client = {
+		export = 'clothing.clothes'
 	},
+	buttons = {
+		{
+			label = 'Rename',
+			action = function(slot)
+				TriggerServerEvent('clothing:sv:renameOutfit', slot)
+			end
+		}
+	}
+},
 ```
 
 ## 📝 Exports (client)
