@@ -4,17 +4,16 @@ Config.Language = 'en' -- Select your language here. [en / cs]
 Config.MenuKey = false -- Configure the default key to open clothing menu (false to disable).
 Config.UseRadial = false -- If true the radial menu will be used otherwise the context menu.
 
-Config.EnableCommands = true -- Enable or disable commands for taking off clothes faster.
 Config.PlayerWontLoseProps = true -- Should player lose props (hat, glasses) on damage or not?
 Config.OutfitRenaming = true -- Should the option to rename outfits be enabled?
-Config.ClothingIdDesc = true -- Show ID of the clothing item in item description?
+Config.ClothingIdDesc = true -- Show ID of the clothing item in item description? (Doesn't work on QB)
 Config.CreatedByDesc = false -- Show name of person that created the item in the description? Requires a framework.
 
 -- █▀▀ █░░ █ █▀█ █▀█ █ █▄░█ █▀▀   █ █▀ █▀ █░█ █▀▀   █▀▀ █ ▀▄▀
 -- █▄▄ █▄▄ █ █▀▀ █▀▀ █ █░▀█ █▄█   █ ▄█ ▄█ █▄█ ██▄   █▀░ █ █░█
 
 Config.MaskFix = true -- Fix face clipping through certain masks?
-Config.MaskFilter = { -- WIP
+Config.MaskFilter = {
     enabled = false, -- Enable mask filter? Only specified masks will be whitelisted / blacklisted.
     blacklist = true, -- If false it will act as a whitelist.
     list = { -- Specify mask IDs for the filter here.
@@ -23,8 +22,8 @@ Config.MaskFilter = { -- WIP
 }
 
 Config.HatFix = true -- Fix hair clipping through certain hats?
-Config.HatFilter = { -- WIP
-    enabled = false, -- Enable hat filter? Only specified hats will be whitelisted / blacklisted.
+Config.HatFilter = {
+    enabled = true, -- Enable hat filter? Only specified hats will be whitelisted / blacklisted.
     blacklist = true, -- If false it will act as a whitelist.
     list = { -- Specify hat IDs for the filter here.
         -- 1, -- example
@@ -48,6 +47,32 @@ Config.Tearing = {
     ['outfit'] = {give = 'cloth', amount = 3, duration = 5000}, -- "give" = item to give when successful / "amount" = specifies the quantity player receives / "duration" = indicates the duration of the process
     ['torso'] = {give = 'cloth', amount = 2, duration = 5000},
     ['clothes'] = {give = 'cloth', amount = 1, duration = 5000},
+}
+
+-- █▀▀ █▀█ █▀▄▀█ █▀▄▀█ ▄▀█ █▄░█ █▀▄ █▀
+-- █▄▄ █▄█ █░▀░█ █░▀░█ █▀█ █░▀█ █▄▀ ▄█
+
+Config.Commands = {
+    enabled = true, -- Enable or disable commands for taking off clothes faster.
+    list = { -- You can rename your commands here.
+        outfit = 'outfit',
+        mask = 'mask',
+        gloves = 'gloves',
+        pants = 'pants',
+        backpack = 'backpack',
+        shoes = 'shoes',
+        chain = 'chain',
+        shirt = 'shirt',
+        vest = 'vest',
+        decals = 'decals',
+        jacket = 'jacket',
+
+        hat = 'hat',
+        glasses = 'glasses',
+        earrings = 'earrings',
+        watch = 'watch',
+        bracelet = 'bracelet'
+    }
 }
 
 -- █▀▄▀█ █▀▀ █▄░█ █░█
@@ -82,7 +107,7 @@ Config.Menu = {
             },
             [7] = { -- accessory
                 title = 'chain_label',
-                icon = 'ring'
+                icon = 'gem'
             },
             [8] = { -- top
                 title = 'top_label',
@@ -116,11 +141,11 @@ Config.Menu = {
             },
             [6] = { -- watch
                 title = 'watch_label',
-                icon = 'ear-deaf'
+                icon = 'clock'
             },
             [7] = { -- bracelet
                 title = 'bracelet_label',
-                icon = 'ear-deaf'
+                icon = 'ring'
             },
         }
     }
@@ -158,12 +183,16 @@ Config.PropAnimations = { -- You can configure your animations for taking off pr
     take_off = {
         [0] = { dict = "missheist_agency2ahelmet", clip = "take_off_helmet_stand", flag = 51, duration = 600 }, -- Hat
         [1] = { dict = "clothingspecs", clip = "take_off", flag = 51, duration = 1400 }, -- Glasses
-        [2] = { dict = "mp_cp_stolen_tut", clip = "b_think", flag = 51, duration = 900 } -- Ear accessories
+        [2] = { dict = "mp_cp_stolen_tut", clip = "b_think", flag = 51, duration = 900 }, -- Ear accessories
+        [6] = { dict = "mp_arresting", clip = "a_uncuff", flag = 51, duration = 900 }, -- Watch
+        [7] = { dict = "mp_arresting", clip = "a_uncuff", flag = 51, duration = 900 } -- Bracelet
     },
     put_on = {
         [0] = { dict = "veh@common@fp_helmet@", clip = "put_on_helmet", flag = 51, duration = 2000 }, -- Hat
         [1] = { dict = "clothingspecs", clip = "take_off", flag = 51, duration = 1400 }, -- Glasses
-        [2] = { dict = "mp_cp_stolen_tut", clip = "b_think", flag = 51, duration = 900 } -- Ear accessories
+        [2] = { dict = "mp_cp_stolen_tut", clip = "b_think", flag = 51, duration = 900 }, -- Ear accessories
+        [6] = { dict = "mp_arresting", clip = "a_uncuff", flag = 51, duration = 900 }, -- Watch
+        [7] = { dict = "mp_arresting", clip = "a_uncuff", flag = 51, duration = 900 } -- Bracelet
     }
 }
 
@@ -188,7 +217,9 @@ Config.DefaultPlayerClothes = {
         Props = {
             [0] = { index = 1, drawable = -1, texture = -1 }, -- Hat
             [1] = { index = 2, drawable = -1, texture = -1 }, -- Glasses
-            [2] = { index = 3, drawable = -1, texture = -1 } -- Ear accessory
+            [2] = { index = 3, drawable = -1, texture = -1 }, -- Ear accessory
+            [6] = { index = 3, drawable = -1, texture = -1 }, -- Watch
+            [7] = { index = 3, drawable = -1, texture = -1 } -- Bracelet
         }
     },
     Female = {
@@ -207,7 +238,9 @@ Config.DefaultPlayerClothes = {
         Props = {
             [0] = { index = 1, drawable = -1, texture = -1 }, -- Hat
             [1] = { index = 2, drawable = -1, texture = -1 }, -- Glasses
-            [2] = { index = 3, drawable = -1, texture = -1 } -- Ear accessory
+            [2] = { index = 3, drawable = -1, texture = -1 }, -- Ear accessory
+            [6] = { index = 3, drawable = -1, texture = -1 }, -- Watch
+            [7] = { index = 3, drawable = -1, texture = -1 } -- Bracelet
         }
     }
 }
@@ -220,7 +253,7 @@ Config.DefaultPlayerClothes = {
 
 Config.AutomaticBackpack = false
 Config.Backpacks = {
-    [3] = { -- The number is the backpack priority (if player has item 1 and item 2 then item 1 will be always shown).
+    [1] = { -- The number is the backpack priority (if player has item 1 and item 2 then item 1 will be always shown).
         item = 'large_backpack', -- Item name of your backpack.
         drawable = 66, -- Drawable ID of the backpack.
         texture = 0 -- Texture ID of the backpack.
@@ -230,7 +263,7 @@ Config.Backpacks = {
         drawable = 65,
         texture = 0
     },
-    [1] = {
+    [3] = {
         item = 'small_backpack',
         drawable = 67,
         texture = 0
@@ -260,13 +293,13 @@ Config.EnableSpecialOutfits = false -- Should special outfits be enabled or disa
 Config.MarkUnnamedOutfits = false -- Should these outfits be marked by default? Can prevent players from faking outfits by renaming them.
 Config.MarkText = '⭐'
 
--- WIP --------------------------------------------------------
+-- WORK IN PROGRESS --------------------------------------------------------
 Config.UseOutfitEffects = false -- Requires the effects script.
 -- You can find it here: https://github.com/LikeManTV/effects
--- WIP --------------------------------------------------------
+-- WORK IN PROGRESS --------------------------------------------------------
 
 Config.SpecialOutfits = {
-    -- ['example'] = {
+    -- {
     --     label = 'Example Outfit',
     --     outfitEffect = 'outfit',
     --     proofs = {
@@ -295,6 +328,8 @@ Config.SpecialOutfits = {
     --             [0] = {d = 0, t = 0}, -- Hat
     --             [1] = {d = 0, t = 0}, -- Glassses
     --             [2] = {d = 0, t = 0}, -- Ear accessory
+    --             [6] = {d = 0, t = 0}, -- Watch
+    --             [7] = {d = 0, t = 0}, -- Bracelet
     --         }
     --     },
     --     Female = {
@@ -313,6 +348,8 @@ Config.SpecialOutfits = {
     --             [0] = {d = 0, t = 0}, -- Hat
     --             [1] = {d = 0, t = 0}, -- Glassses
     --             [2] = {d = 0, t = 0}, -- Ear accessory
+    --             [6] = {d = 0, t = 0}, -- Watch
+    --             [7] = {d = 0, t = 0}, -- Bracelet
     --         }
     --     }
     -- },

@@ -1,40 +1,38 @@
 -- Special outfits
 CreateThread(function()
-    if Config.EnableSpecialOutfits then
-        local set = false
-        while true do
-            local outfitName, outfitLabel = clothing.isWearingOutfit()
-            if DoesEntityExist(cache.ped) and not IsEntityDead(cache.ped) then
-                for name, data in pairs(Config.SpecialOutfits) do
-                    if outfitName or outfitLabel then
-                        if data.label == outfitLabel then
-                            if data.proofs then
-                                if not set then
-                                    SetEntityProofs(cache.ped, table.unpack(data.proofs))
-                                    set = true
-                                end
-                                if outfitName == 'scuba' then
-                                    SetEnableScuba(cache.ped, true)
-                                else
-                                    SetEnableScuba(cache.ped, false)
-                                end
+    local set = false
+    while Config.EnableSpecialOutfits do
+        local outfitName, outfitLabel = clothing.isWearingOutfit()
+        if DoesEntityExist(cache.ped) and not IsEntityDead(cache.ped) then
+            for _, data in pairs(Config.SpecialOutfits) do
+                if outfitName or outfitLabel then
+                    if data.label == outfitLabel then
+                        if data.proofs then
+                            if not set then
+                                SetEntityProofs(cache.ped, table.unpack(data.proofs))
+                                set = true
+                            end
+                            if outfitName == 'scuba' then
+                                SetEnableScuba(cache.ped, true)
                             else
-                                if set then
-                                    SetEntityProofs(cache.ped, false, false, false, false, false, false, false, false)
-                                    set = false
-                                end
+                                SetEnableScuba(cache.ped, false)
+                            end
+                        else
+                            if set then
+                                SetEntityProofs(cache.ped, false, false, false, false, false, false, false, false)
+                                set = false
                             end
                         end
-                    else
-                        if set then
-                            SetEntityProofs(cache.ped, false, false, false, false, false, false, false, false)
-                            set = false
-                        end
+                    end
+                else
+                    if set then
+                        SetEntityProofs(cache.ped, false, false, false, false, false, false, false, false)
+                        set = false
                     end
                 end
             end
-            Wait(1000)
         end
+        Wait(1000)
     end
 end)
 

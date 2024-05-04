@@ -1,12 +1,3 @@
-local inventory = exports.ox_inventory
-
-local skinchanger = GetResourceState('skinchanger'):find('start')
-local esx_skin = GetResourceState('esx_skin'):find('start')
-local ox_appearance = GetResourceState('ox_appearance'):find('start')
-local fivem_appearance = GetResourceState('fivem-appearance'):find('start')
-local illenium_appearance = GetResourceState('illenium-appearance'):find('start')
-local qb_clothing = GetResourceState('qb-clothing'):find('start')
-
 local faceFeatures = {}
 local currentHair = nil
 
@@ -171,9 +162,8 @@ else
     lib.registerContext({
         id = 'clothing_menu',
         title = _L('menu_title'),
-        menu = 'personal_menu',
         onExit = function()
-            clothing.saveClothes()
+            appearance.saveSkin()
         end,
         options = categories,
         {
@@ -208,29 +198,26 @@ if Config.MenuKey then
 end
 
 -- Commands
-if Config.EnableCommands then
-    RegisterCommand('outfit', function() TriggerEvent('clothing:cl:handleOutfit') end)
-    RegisterCommand('mask', function() TriggerEvent('clothing:cl:handleClothes', {index = 1}) end)
-    RegisterCommand('gloves', function() TriggerEvent('clothing:cl:handleClothes', {index = 3}) end)
-    RegisterCommand('pants', function() TriggerEvent('clothing:cl:handleClothes', {index = 4}) end)
+if Config.Commands.enabled then
+    RegisterCommand(Config.Commands.list.outfit, function() TriggerEvent('clothing:cl:handleOutfit') end)
+    RegisterCommand(Config.Commands.list.mask, function() TriggerEvent('clothing:cl:handleClothes', {index = 1}) end)
+    RegisterCommand(Config.Commands.list.gloves, function() TriggerEvent('clothing:cl:handleClothes', {index = 3}) end)
+    RegisterCommand(Config.Commands.list.pants, function() TriggerEvent('clothing:cl:handleClothes', {index = 4}) end)
     if not Config.AutomaticBackpack then
-        RegisterCommand('backpack', function() TriggerEvent('clothing:cl:handleClothes', {index = 5}) end)
-        RegisterCommand('bag', function() TriggerEvent('clothing:cl:handleClothes', {index = 5}) end)
+        RegisterCommand(Config.Commands.list.backpack, function() TriggerEvent('clothing:cl:handleClothes', {index = 5}) end)
     end
-    RegisterCommand('shoes', function() TriggerEvent('clothing:cl:handleClothes', {index = 6}) end)
-    RegisterCommand('chain', function() TriggerEvent('clothing:cl:handleClothes', {index = 7}) end)
-    RegisterCommand('top', function() TriggerEvent('clothing:cl:handleClothes', {index = 8}) end)
-    RegisterCommand('shirt', function() TriggerEvent('clothing:cl:handleClothes', {index = 8}) end)
-    RegisterCommand('vest', function() TriggerEvent('clothing:cl:handleClothes', {index = 9}) end)
-    RegisterCommand('badges', function() TriggerEvent('clothing:cl:handleClothes', {index = 10}) end)
-    RegisterCommand('decals', function() TriggerEvent('clothing:cl:handleClothes', {index = 10}) end)
-    RegisterCommand('jacket', function() TriggerEvent('clothing:cl:handleClothes', {index = 11}) end)
+    RegisterCommand(Config.Commands.list.shoes, function() TriggerEvent('clothing:cl:handleClothes', {index = 6}) end)
+    RegisterCommand(Config.Commands.list.chain, function() TriggerEvent('clothing:cl:handleClothes', {index = 7}) end)
+    RegisterCommand(Config.Commands.list.shirt, function() TriggerEvent('clothing:cl:handleClothes', {index = 8}) end)
+    RegisterCommand(Config.Commands.list.vest, function() TriggerEvent('clothing:cl:handleClothes', {index = 9}) end)
+    RegisterCommand(Config.Commands.list.decals, function() TriggerEvent('clothing:cl:handleClothes', {index = 10}) end)
+    RegisterCommand(Config.Commands.list.jacket, function() TriggerEvent('clothing:cl:handleClothes', {index = 11}) end)
 
-    RegisterCommand('hat', function() TriggerEvent('clothing:cl:handleProps', {index = 0}) end)
-    RegisterCommand('glasses', function() TriggerEvent('clothing:cl:handleProps', {index = 1}) end)
-    RegisterCommand('earrings', function() TriggerEvent('clothing:cl:handleProps', {index = 2}) end)
-    RegisterCommand('watch', function() TriggerEvent('clothing:cl:handleProps', {index = 6}) end)
-    RegisterCommand('bracelet', function() TriggerEvent('clothing:cl:handleProps', {index = 7}) end)
+    RegisterCommand(Config.Commands.list.hat, function() TriggerEvent('clothing:cl:handleProps', {index = 0}) end)
+    RegisterCommand(Config.Commands.list.glasses, function() TriggerEvent('clothing:cl:handleProps', {index = 1}) end)
+    RegisterCommand(Config.Commands.list.earrings, function() TriggerEvent('clothing:cl:handleProps', {index = 2}) end)
+    RegisterCommand(Config.Commands.list.watch, function() TriggerEvent('clothing:cl:handleProps', {index = 6}) end)
+    RegisterCommand(Config.Commands.list.bracelet, function() TriggerEvent('clothing:cl:handleProps', {index = 7}) end)
 end
 
 -- █▀▀ █░█ █▀▀ █▄░█ ▀█▀ █▀
@@ -239,7 +226,7 @@ end
 -- Undress handling
 RegisterNetEvent('clothing:cl:handleOutfit', function()
     clothing.handleUndress('outfit', false)
-    clothing.saveClothes()
+    appearance.saveSkin()
 end)
 
 RegisterNetEvent('clothing:cl:handleClothes', function(data)
@@ -248,12 +235,12 @@ RegisterNetEvent('clothing:cl:handleClothes', function(data)
     else
         clothing.handleUndress('clothes', false, data.index)
     end
-    clothing.saveClothes()
+    appearance.saveSkin()
 end)
 
 RegisterNetEvent('clothing:cl:handleProps', function(data)
     clothing.handleUndress('prop', false, data.index)
-    clothing.saveClothes()
+    appearance.saveSkin()
 end)
 
 RegisterNetEvent('clothing:cl:handleOutfitPlayer', function()
@@ -370,8 +357,8 @@ CreateThread(function()
         if Config.AutomaticBackpack then
             local hasValidBackpack = false
             for k, v in ipairs(Config.Backpacks) do
-                local bag = inventory:Search('count', v.item)
-                if bag >= 1 then
+                local bag = inventory.Search('count', v.item)
+                if bag then
                     SetPedComponentVariation(cache.ped, 5, v.drawable, v.texture, 0)
                     hasValidBackpack = true
                     break
@@ -385,26 +372,61 @@ CreateThread(function()
 
         -- Fix wearing masks
         if Config.MaskFix then
-            local function GetHeadBlendData()
+            local currentMask = GetPedDrawableVariation(cache.ped, 1)
+            local function getHeadBlendData()
                 return Citizen.InvokeNative(0x2746BD9D88C5C5D0, cache.ped, Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueIntInitialized(0), Citizen.PointerValueFloatInitialized(0), Citizen.PointerValueFloatInitialized(0), Citizen.PointerValueFloatInitialized(0))
             end
 
-            if GetPedDrawableVariation(cache.ped, 1) == 0 and hasMask then
+            if currentMask == 0 and hasMask then
                 hasMask = false
                 SetPedHeadBlendData(cache.ped, faceFeatures[1], faceFeatures[2], faceFeatures[3], faceFeatures[4], faceFeatures[5], faceFeatures[6], faceFeatures[7], faceFeatures[8], faceFeatures[9], false)
-            elseif GetPedDrawableVariation(cache.ped, 1) > 0 and not hasMask then
+            elseif currentMask > 0 and not hasMask then
+                if Config.MaskFilter.enabled then
+                    if Config.MaskFilter.blacklist then
+                        for _, id in ipairs(Config.MaskFilter.list) do
+                            if currentMask == id then
+                                return
+                            end
+                        end
+                    else
+                        for _, id in ipairs(Config.MaskFilter.list) do
+                            if currentMask ~= id then
+                                return
+                            end
+                        end
+                    end
+                end
+
                 hasMask = true
-                faceFeatures = {GetHeadBlendData()}
+                faceFeatures = {getHeadBlendData()}
                 SetPedHeadBlendData(cache.ped, 0, 0, 0, faceFeatures[4], faceFeatures[5], faceFeatures[6], 0, faceFeatures[8], 0, false)
             end
         end
 
         -- Fix wearing hats
         if Config.HatFix then
-            if GetPedPropIndex(cache.ped, 0) == -1 and hasHat then
+            local currentHat = GetPedPropIndex(cache.ped, 0)
+
+            if currentHat == -1 and hasHat then
                 hasHat = false
                 SetPedComponentVariation(cache.ped, 2, currentHair.drawable, currentHair.texture, currentHair.palette)
-            elseif GetPedPropIndex(cache.ped, 0) > -1 and not hasHat then
+            elseif currentHat > -1 and not hasHat then
+                if Config.HatFilter.enabled then
+                    if Config.HatFilter.blacklist then
+                        for _, id in ipairs(Config.HatFilter.list) do
+                            if currentHat == id then
+                                return
+                            end
+                        end
+                    else
+                        for _, id in ipairs(Config.HatFilter.list) do
+                            if currentHat ~= id then
+                                return
+                            end
+                        end
+                    end
+                end
+
                 hasHat = true
                 currentHair = {drawable = GetPedDrawableVariation(cache.ped, 2), texture = GetPedTextureVariation(cache.ped, 2), palette = GetPedPaletteVariation(cache.ped, 2)}
                 SetPedComponentVariation(cache.ped, 2, 0, 0, 0)

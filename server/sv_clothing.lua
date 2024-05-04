@@ -1,5 +1,3 @@
-local inventory = exports.ox_inventory
-
 -- █▀▀ █░█ █▀▀ █▄░█ ▀█▀ █▀
 -- ██▄ ▀▄▀ ██▄ █░▀█ ░█░ ▄█
 
@@ -13,7 +11,7 @@ RegisterServerEvent('clothing:sv:giveOutfit', function(data, outfit)
     end
 
     if Config.CreatedByDesc then
-        local name = getPlayerName(source)
+        local name = framework.getPlayerName(source)
         metadata['description'] = string.format('%s  \n%s', gender, _L('created_by')..' '..name)
     end
 
@@ -23,22 +21,22 @@ RegisterServerEvent('clothing:sv:giveOutfit', function(data, outfit)
 
     for k,v in pairs(data.outfit.comps) do
         metadata[tostring(k)] = {}
-        metadata[tostring(k)]["type"] = 'comp'
-        metadata[tostring(k)]["index"] = v.index
-        metadata[tostring(k)]["drawable"] = v.drawable
-        metadata[tostring(k)]["texture"]  = v.texture
-        metadata[tostring(k)]["palette"]  = v.palette
+        metadata[tostring(k)]['type'] = 'comp'
+        metadata[tostring(k)]['index'] = v.index
+        metadata[tostring(k)]['drawable'] = v.drawable
+        metadata[tostring(k)]['texture']  = v.texture
+        metadata[tostring(k)]['palette']  = v.palette
     end
     for k,v in pairs(data.outfit.props) do
         metadata[tostring(k)] = {}
-        metadata[tostring(k)]["type"] = 'prop'
-        metadata[tostring(k)]["index"] = v.index
-        metadata[tostring(k)]["drawable"] = v.drawable
-        metadata[tostring(k)]["texture"]  = v.texture
+        metadata[tostring(k)]['type'] = 'prop'
+        metadata[tostring(k)]['index'] = v.index
+        metadata[tostring(k)]['drawable'] = v.drawable
+        metadata[tostring(k)]['texture']  = v.texture
     end
     Wait(100)
 
-    inventory:AddItem(source, 'outfit', 1, metadata)
+    inventory.AddItem(source, 'outfit', 1, metadata)
 end)
 
 RegisterServerEvent('clothing:sv:giveTorso', function(data)
@@ -47,20 +45,20 @@ RegisterServerEvent('clothing:sv:giveTorso', function(data)
     local metadata = {label = _L('top_label'), part = 'torso', image = 'shirt', sex = data.sex, description = string.format('%s', gender)}
 
     if Config.CreatedByDesc then
-        local name = getPlayerName(source)
+        local name = framework.getPlayerName(source)
         metadata['description'] = string.format('%s  \n%s', gender, _L('created_by')..' '..name)
     end
     
     for k,v in pairs(data.torso) do
         metadata[tostring(k)] = {}
-        metadata[tostring(k)]["index"] = v.index
-        metadata[tostring(k)]["drawable"] = v.drawable
-        metadata[tostring(k)]["texture"]  = v.texture
-        metadata[tostring(k)]["palette"]  = v.palette
+        metadata[tostring(k)]['index'] = v.index
+        metadata[tostring(k)]['drawable'] = v.drawable
+        metadata[tostring(k)]['texture']  = v.texture
+        metadata[tostring(k)]['palette']  = v.palette
     end
     Wait(100)
 
-    inventory:AddItem(source, 'clothes', 1, metadata)
+    inventory.AddItem(source, 'clothes', 1, metadata)
 end)
 
 RegisterServerEvent('clothing:sv:giveClothes', function(data)
@@ -69,7 +67,7 @@ RegisterServerEvent('clothing:sv:giveClothes', function(data)
     local metadata = {part = 'clothes', sex = data.sex, description = string.format('%s', gender), index = data.index, drawable = data.drawable, texture = data.texture}
 
     if Config.CreatedByDesc then
-        local name = getPlayerName(source)
+        local name = framework.getPlayerName(source)
         metadata['description'] = string.format('%s  \n%s', gender, _L('created_by')..' '..name)
     end
 
@@ -92,7 +90,7 @@ RegisterServerEvent('clothing:sv:giveClothes', function(data)
     if mapping then
         metadata['label'] = mapping.label
         metadata['image'] = mapping.image
-        inventory:AddItem(source, 'clothes', 1, metadata)
+        inventory.AddItem(source, 'clothes', 1, metadata)
     end
 end)
 
@@ -102,7 +100,7 @@ RegisterServerEvent('clothing:sv:giveProp', function(data)
     local metadata = {part = 'prop', sex = data.sex, description = string.format('%s', gender), index = data.index, drawable = data.drawable, texture = data.texture}
 
     if Config.CreatedByDesc then
-        local name = getPlayerName(source)
+        local name = framework.getPlayerName(source)
         metadata['description'] = string.format('%s  \n%s', gender, _L('created_by')..' '..name)
     end
 
@@ -113,8 +111,8 @@ RegisterServerEvent('clothing:sv:giveProp', function(data)
     local items = {
         [0] = { label = _L('hat_label'), image = 'hat' },
         [1] = { label = _L('glasses_label'), image = 'glasses' },
-        [2] = { label = _L('pants_label'), image = 'ears' }
-        [6] = { label = _L('watch_label'), image = 'watch' }
+        [2] = { label = _L('earrings_label'), image = 'ears' },
+        [6] = { label = _L('watch_label'), image = 'watch' },
         [7] = { label = _L('bracelet_label'), image = 'bracelet' }
     }
     local mapping = items[data.index]
@@ -122,13 +120,13 @@ RegisterServerEvent('clothing:sv:giveProp', function(data)
     if mapping then
         metadata['label'] = mapping.label
         metadata['image'] = mapping.image
-        inventory:AddItem(source, 'clothes', 1, metadata)
+        inventory.AddItem(source, 'clothes', 1, metadata)
     end
 end)
 
-RegisterServerEvent('clothing:sv:removeItem', function(data, slot)
+RegisterServerEvent('clothing:sv:removeItem', function(metadata, slot)
     local source = source
-    inventory:RemoveItem(source, 'clothes', 1, data, slot)
+    inventory.RemoveItem(source, 'clothes', 1, metadata, slot)
 end)
 
 RegisterServerEvent('clothing:sv:requestOutfit', function(target)
@@ -137,15 +135,25 @@ end)
 
 RegisterServerEvent('clothing:sv:tearClothes', function(slot)
     local source = source
-
+    
     if Config.TearClothes then
         local progress = lib.callback.await('clothing:cl:tearingProgress', source, _L('tearing_clothes'), data.duration, 'amb@prop_human_parking_meter@male@base', 'base')
         if progress then
-            local slotData = inventory:GetSlot(source, slot)
-            for _type, data in pairs(Config.Tearing) do
-                if slotData.metadata.part and slotData.metadata.part == _type then
-                    inventory:RemoveItem(source, slotData.name, 1, slotData.metadata, slot)
-                    inventory:AddItem(source, data.give, data.amount)
+            local slotData = inventory.GetSlot(source, slot)
+
+            if inventory.GetActiveInventory() == 'ox_inventory' then
+                for _type, data in pairs(Config.Tearing) do
+                    if slotData.metadata.part and slotData.metadata.part == _type then
+                        inventory.RemoveItem(source, slotData.name, 1, slotData.metadata, slot)
+                        inventory.AddItem(source, data.give, data.amount)
+                    end
+                end
+            else
+                for _type, data in pairs(Config.Tearing) do
+                    if slotData.info.part and slotData.info.part == _type then
+                        inventory.RemoveItem(source, slotData.name, 1, slotData.info, slot)
+                        inventory.AddItem(source, data.give, data.amount)
+                    end
                 end
             end
         end
@@ -155,11 +163,16 @@ end)
 RegisterServerEvent('clothing:sv:renameOutfit', function(slot)
     if Config.OutfitRenaming then
         local source = source
-        local slotData = inventory:GetSlot(source, slot)
-        local newName = lib.callback.await('clothing:cl:renameOutfit', source, slotData.metadata.label)
+        local slotData = inventory.GetSlot(source, slot)
 
-        TriggerClientEvent('ox_inventory:closeInventory', source)
-        slotData.metadata.label = newName
-        inventory:SetMetadata(source, slot, slotData.metadata)
+        if inventory.GetActiveInventory() == 'ox_inventory' then
+            local newName = lib.callback.await('clothing:cl:renameOutfit', source, slotData.metadata.label)
+            TriggerClientEvent('ox_inventory:closeInventory', source)
+            slotData.metadata.label = newName
+            inventory.SetMetadata(source, slot, slotData.metadata)
+        else
+            local newName = lib.callback.await('clothing:cl:renameOutfit', source, slotData.label)
+            inventory.SetMetadata(source, slot, newName)
+        end
     end
 end)

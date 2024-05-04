@@ -1,26 +1,16 @@
 Language["en"] = {
+    -- MENU TITLES
     menu_title = 'CLOTHING MENU',
     menu_clothing_title = 'CLOTHES',
     menu_props_title = 'ACCESSORIES',
 
+    -- MENU CATEGORIES
     take_off_outfit = 'Take off outfit',
     take_off_outfit_other = 'Take off player outfit',
     take_off_clothes = 'Take off clothes',
     take_off_props = 'Take off accessory',
 
-    take_off_mask = 'Take off mask',
-    take_off_top = 'Take off top',
-    take_off_gloves = 'Take off gloves',
-    take_off_backpack = 'Take off backpack',
-    take_off_vest = 'Take off vest',
-    take_off_pants = 'Take off pants',
-    take_off_shoes = 'Take off shoes',
-    take_off_hat = 'Take off hat',
-    take_off_glasses = 'Take off glasses',
-    take_off_earrings = 'Take off ear accessory',
-    take_off_chain = 'Take off necklace',
-    take_off_badges = 'Take off decals',
-
+    -- MENU & ITEMS
     default_outfit_label = 'Outfit',
     top_label = 'Top',
     mask_label = 'Mask',
@@ -34,6 +24,8 @@ Language["en"] = {
     hat_label = 'Hat',
     glasses_label = 'Glasses',
     earrings_label = 'Ear accessory',
+    watch_label = 'Watch',
+    bracelet_label = 'Bracelet',
 
     male_outfit = 'Male outfit',
     female_outfit = 'Female outfit',
@@ -44,17 +36,26 @@ Language["en"] = {
     male_prop = 'Male accessory',
     female_prop = 'Female accessory',
 
+    -- MISC
     created_by = 'Created by:',
     tearing_clothes = 'Tearing clothes..',
     toggle_nvg = 'Toggle NVG',
 
+    -- REQUEST
+    new_request_title = 'New Request',
+    new_request_desc = 'A player wants to take off your clothes.',
+    request_sent = 'Request was successfully sent.',
+
+    -- RENAMING
     rename_title = 'RENAME OUTFIT',
     rename_text = 'Enter a new name..',
     rename_successful = 'Successfuly renamed!',
 
+    -- ERRORS
     error_fitcheck = 'These clothes don\'t fit you!',
     error_no_clothes = 'You have nothing to take off!',
     error_outfit_name = 'You must specify the name of the outfit!',
     error_no_permission = 'You don\'t have permission to do this!',
     error_tearing_disabled = 'Tearing clothes is disabled!',
+    error_nobody_around = 'There are no players around!',
 }

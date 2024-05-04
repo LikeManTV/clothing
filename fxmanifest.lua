@@ -4,23 +4,24 @@ lua54 'yes'
 
 author 'LikeManTV'
 description 'Metadata-based clothing system.'
-version '1.0.0'
+version '1.0.1'
 
 shared_scripts {
     '@ox_lib/init.lua',
     'config.lua',
-    'locale.lua',
+    'shared/locale.lua',
     'locales/*.lua'
 }
 
 client_scripts {
+    "bridge/**/**/**/client.lua",
     'client/cl_class.lua',
     'client/cl_clothing.lua',
     'client/cl_gear.lua'
 }
 
 server_scripts {
-    "bridge/**/**/server.lua",
+    "bridge/**/**/**/server.lua",
     'server/sv_clothing.lua'
 }
 

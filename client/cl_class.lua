@@ -31,6 +31,10 @@ utils = {
         for i = 0, 2 do
             player.props[i] = { d = GetPedPropIndex(cache.ped, i), t = GetPedPropTextureIndex(cache.ped, i) }
         end
+
+        for i = 6, 7 do
+            player.props[i] = { d = GetPedPropIndex(cache.ped, i), t = GetPedPropTextureIndex(cache.ped, i) }
+        end
     
         local defaultOutfit = Config.DefaultPlayerClothes[gender]
         for index, data in pairs(defaultOutfit.Components) do
@@ -50,19 +54,19 @@ utils = {
 }
 
 clothing = {
-    applyClothing = function(type, slot)
+    applyClothing = function(_type, slot)
         local data = slot.metadata
         local gender = utils.getPedSex(cache.ped)
         if data.sex ~= gender then
             return notify(_L('error_fitcheck', 'error'))
         end
 
-        if type == 'outfit' then
+        if _type == 'outfit' then
             local hair = GetPedDrawableVariation(cache.ped, 2)
             local hairTexture = GetPedTextureVariation(cache.ped, 2)
             local isNaked = utils.isNaked()
 
-            if not isNaked then clothing.handleUndress('outfit', false) end
+            if not isNaked then clothing.handleUndress('outfit', true) end
             for k, v in pairs(data) do
                 if v.type == 'comp' then
                     SetPedComponentVariation(cache.ped, v.index, v.drawable, v.texture, v.palette)
@@ -71,42 +75,44 @@ clothing = {
                 end
             end
             SetPedComponentVariation(cache.ped, 2, hair, hairTexture, 0)
-            clothing.saveClothes()
+            appearance.saveSkin()
             TriggerServerEvent('clothing:sv:removeItem', data, slot)
-        elseif type == 'torso' then
+        elseif _type == 'torso' then
             -- local bestTorso = torsoData[gender][tostring(data.Jacket.drawable)][tostring(data.Jacket.texture)]
             -- if bestTorso and bestTorso.BestTorsoDrawable ~= -1 then
             --     SetPedComponentVariation(cache.ped, 3, bestTorso.BestTorsoDrawable, bestTorso.BestTorsoTexture, 2)
             -- end
 
-            if lastArms then
-                SetPedComponentVariation(cache.ped, 3, lastArms.d, lastArms.t, 2)
-            end
+            if clothing.checkCurrent('torso') then
+                if lastArms then
+                    SetPedComponentVariation(cache.ped, 3, lastArms.d, lastArms.t, 2)
+                end
 
-            for k,v in pairs(data) do
-                SetPedComponentVariation(cache.ped, v.index, v.drawable, v.texture, v.palette)
-                clothing.saveClothes()
-                TriggerServerEvent("clothing:sv:removeItem", data, slot)
+                for k,v in pairs(data) do
+                    SetPedComponentVariation(cache.ped, v.index, v.drawable, v.texture, v.palette)
+                    appearance.saveSkin()
+                    TriggerServerEvent("clothing:sv:removeItem", data, slot)
+                end
             end
-        elseif type == 'clothes' then
+        elseif _type == 'clothes' then
             if clothing.checkCurrent('clothes', data.index) then
                 SetPedComponentVariation(cache.ped, data.index, data.drawable, data.texture, data.palette)
-                clothing.saveClothes()
+                appearance.saveSkin()
                 TriggerServerEvent("clothing:sv:removeItem", data, slot)
             end
-        elseif type == 'prop' then
+        elseif _type == 'prop' then
             if clothing.checkCurrent('prop', data.index) then
                 SetPedPropIndex(cache.ped, data.index, data.drawable, data.texture, true)
-                clothing.saveClothes()
+                appearance.saveSkin()
                 TriggerServerEvent("clothing:sv:removeItem", data, slot)
             end
         end
     end,
 
-    handleUndress = function(type, changing, index)
+    handleUndress = function(_type, changing, index)
         local gender = utils.getPedSex(cache.ped)
 
-        if type == 'outfit' then
+        if _type == 'outfit' then
             local hair = GetPedDrawableVariation(cache.ped, 2)
             local hairTexture = GetPedTextureVariation(cache.ped, 2)
             local outfitData = {
@@ -135,6 +141,13 @@ clothing = {
                     texture = GetPedPropTextureIndex(cache.ped, i)
                 }
             end
+            for i = 6, 7 do
+                outfitData.outfit.props[i] = {
+                    index = i,
+                    drawable = GetPedPropIndex(cache.ped, i),
+                    texture = GetPedPropTextureIndex(cache.ped, i)
+                }
+            end
         
             local outfitName, outfitLabel = clothing.isWearingOutfit()
             if clothing.isAbleToUndress('Components', 8, GetPedDrawableVariation(cache.ped, 8)) or clothing.isAbleToUndress('Components', 4, GetPedDrawableVariation(cache.ped, 4)) or clothing.isAbleToUndress('Components', 6, GetPedDrawableVariation(cache.ped, 6)) then
@@ -156,9 +169,9 @@ clothing = {
                 SetPedComponentVariation(cache.ped, 2, hair, hairTexture, 0)
                 TriggerServerEvent("clothing:sv:giveOutfit", outfitData, outfitLabel)
             else
-                notify(_L('error_no_clothes'), "error")  
+                notify(_L('error_no_clothes'), "error")
             end
-        elseif type == 'torso' then
+        elseif _type == 'torso' then
             local torsoData = {
                 sex = gender,
                 torso = {
@@ -192,9 +205,9 @@ clothing = {
                 end
                 TriggerServerEvent("clothing:sv:giveTorso", torsoData)
             else
-                notify(_L('error_no_clothes'), "error")  
+                notify(_L('error_no_clothes'), "error")
             end
-        elseif type == 'clothes' then
+        elseif _type == 'clothes' then
             local currentDrawable = GetPedDrawableVariation(cache.ped, index)
             local currentTexture = GetPedTextureVariation(cache.ped, index)
             local clothingData = {
@@ -214,9 +227,9 @@ clothing = {
                 end
                 TriggerServerEvent("clothing:sv:giveClothes", clothingData)
             else
-                notify(_L('error_no_clothes'), "error")  
+                notify(_L('error_no_clothes'), "error")
             end
-        elseif type == 'prop' then
+        elseif _type == 'prop' then
             local currentProp = GetPedPropIndex(cache.ped, index)
             local propData = {
                 sex = gender,
@@ -229,20 +242,21 @@ clothing = {
                 clothing.setDefaultPropVariation({ isAnimated = true, sex = gender, index = index, isChangingClothes = changing })
                 TriggerServerEvent("clothing:sv:giveProp", propData)
             else
-                notify(_L('error_no_clothes'), "error")    
+                notify(_L('error_no_clothes'), "error")
             end
         end
     end,
 
     handleOutfitPlayer = function()
         local player = lib.getClosestPlayer(GetEntityCoords(cache.ped), 3.0, true)
-        local netId = GetPlayerServerId(player)
-        if player and netId then
-            TriggerServerEvent('clothing:sv:requestOutfit', netId)
-            lib.notify({
-                description = 'Žádost odeslána.',
-                type = 'success'
-            })
+        if player and player ~= cache.playerId then
+            local serverId = GetPlayerServerId(player)
+            if serverId then
+                TriggerServerEvent('clothing:sv:requestOutfit', serverId)
+                notify(_L('request_sent'), "success")
+            end
+        else
+            notify(_L('error_nobody_around'), "error")
         end
     end,
 
@@ -252,48 +266,40 @@ clothing = {
         end)
     
         local alert = lib.alertDialog({
-            header = 'Nová žádost',
-            content = 'Hráč vám chce sundat oblečení.',
+            header = _L('new_request_title'),
+            content = _L('new_request_desc'),
             centered = true,
             cancel = true
         })
     
         if alert == 'confirm' then
             clothing.handleUndress('outfit', false)
-            clothing.saveClothes()
+            appearance.saveSkin()
         end
     end,
 
-    saveClothes = function()
-        if esx_skin and skinchanger and not fivem_appearance then
-            TriggerEvent('skinchanger:getSkin', function(getSkin)
-                TriggerServerEvent('esx_skin:save', getSkin)
-            end)
-        elseif ox_appearance then
-            local appearance = exports['fivem-appearance']:getPedAppearance(cache.ped)
-            TriggerServerEvent('ox_appearance:save', appearance)
-        elseif fivem_appearance then
-            local appearance = exports['fivem-appearance']:getPedAppearance(cache.ped)
-            TriggerServerEvent('fivem-appearance:save', appearance)
-        elseif illenium_appearance then
-            local appearance = exports['illenium-appearance']:getPedAppearance(cache.ped)
-            TriggerServerEvent('illenium-appearance:server:saveAppearance', appearance)
-        elseif qb_clothing then
-        end
-    end,
-
-    isAbleToUndress = function(type, index, drawable)
+    isAbleToUndress = function(_type, index, drawable)
         local gender = utils.getPedSex(cache.ped)
 
-        if drawable == Config.DefaultPlayerClothes[gender][type][index].drawable then
+        if drawable == Config.DefaultPlayerClothes[gender][_type][index].drawable then
             return false
         end
 
         return true
     end,
 
-    checkCurrent = function(type, index)
-        if type == 'clothes' then
+    checkCurrent = function(_type, index)
+        if _type == 'torso' then
+            local gender = utils.getPedSex(cache.ped)
+            local shirt = GetPedDrawableVariation(cache.ped, 8)
+            local jacket = GetPedDrawableVariation(cache.ped, 11)
+            
+            if shirt ~= Config.DefaultPlayerClothes[gender].Components[8].drawable or jacket ~= Config.DefaultPlayerClothes[gender].Components[11].drawable then
+                clothing.handleUndress('torso', true, nil)
+            end
+        
+            return true
+        elseif _type == 'clothes' then
             local gender = utils.getPedSex(cache.ped)
             local clothes = GetPedDrawableVariation(cache.ped, index)
             
@@ -302,7 +308,7 @@ clothing = {
             end
         
             return true
-        elseif type == 'prop' then
+        elseif _type == 'prop' then
             local prop = GetPedPropIndex(cache.ped, index)
 
             if prop ~= -1 then
@@ -341,7 +347,7 @@ clothing = {
 
     setDefaultPropVariation = function(data)
         if data.isAnimated then
-            if not isChangingClothes then
+            if not data.isChangingClothes then
                 if lib.progressCircle({
                     duration = Config.PropAnimations.take_off[data.index].duration,
                     position = 'bottom',
@@ -383,6 +389,9 @@ clothing = {
         for i = 0, 2 do
             player.props[i] = { d = GetPedPropIndex(cache.ped, i), t = GetPedPropTextureIndex(cache.ped, i) }
         end
+        for i = 6, 7 do
+            player.props[i] = { d = GetPedPropIndex(cache.ped, i), t = GetPedPropTextureIndex(cache.ped, i) }
+        end
     
         local outfits = {}
         for outfitName, outfitData in pairs(Config.SpecialOutfits) do
@@ -421,8 +430,8 @@ clothing = {
     end,
 }
 
-exports('isWearing', clothing.isWearingOutfit)
-exports('isWearing', clothing.isWearing)
+exports('isWearingOutfit', clothing.isWearingOutfit)
+exports('isWearingClothes', clothing.isWearing)
 exports('isWearingProp', clothing.isWearingProp)
 exports('isNaked', utils.isNaked)
 exports('getPedSex', utils.getPedSex)
