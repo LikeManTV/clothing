@@ -111,15 +111,17 @@ for i = 0, 2 do
             pOptions[#pOptions+1] = {
                 label = _L(data.title),
                 icon = data.icon,
-                event = 'clothing:cl:handleProps',
-                args = {index = i}
+                onSelect = function()
+                    TriggerEvent('clothing:cl:handleProps', {index = i})
+                end
             }
         else
             pOptions[#pOptions+1] = {
                 title = _L(data.title),
                 icon = data.icon,
-                event = 'clothing:cl:handleProps',
-                args = {index = i}
+                onSelect = function()
+                    TriggerEvent('clothing:cl:handleProps', {index = i})
+                end
             }
         end
     end
@@ -131,15 +133,17 @@ for i = 6, 7 do
             pOptions[#pOptions+1] = {
                 label = _L(data.title),
                 icon = data.icon,
-                event = 'clothing:cl:handleProps',
-                args = {index = i}
+                onSelect = function()
+                    TriggerEvent('clothing:cl:handleProps', {index = i})
+                end
             }
         else
             pOptions[#pOptions+1] = {
                 title = _L(data.title),
                 icon = data.icon,
-                event = 'clothing:cl:handleProps',
-                args = {index = i}
+                onSelect = function()
+                    TriggerEvent('clothing:cl:handleProps', {index = i})
+                end
             }
         end
     end
