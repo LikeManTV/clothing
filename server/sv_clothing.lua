@@ -71,7 +71,7 @@ RegisterServerEvent('clothing:sv:giveClothes', function(data)
         metadata['description'] = string.format('%s  \n%s', gender, _L('created_by')..' '..name)
     end
 
-    if Config.DescClothingId then
+    if Config.ClothingIdDesc then
         metadata['type'] = string.format('%s | %s', data.drawable, data.texture)
     end
     
@@ -104,7 +104,7 @@ RegisterServerEvent('clothing:sv:giveProp', function(data)
         metadata['description'] = string.format('%s  \n%s', gender, _L('created_by')..' '..name)
     end
 
-    if Config.DescClothingId then
+    if Config.ClothingIdDesc then
         metadata['type'] = string.format('%s | %s', data.drawable, data.texture)
     end
 
