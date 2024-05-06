@@ -27,7 +27,7 @@ Also feel free to make a PR.
  
 ## 🛠️ Dependencies
 - [ox_lib](https://github.com/overextended/ox_lib)
-- [ox_inventory](https://github.com/overextended/ox_inventory)
+- [ox_inventory](https://github.com/overextended/ox_inventory) / [qb-inventory](https://github.com/qbcore-framework/qb-inventory)
 - [esx_skin](https://github.com/esx-framework/esx_core/tree/main/%5Bcore%5D/esx_skin) & [skinchanger](https://github.com/esx-framework/esx_core/tree/main/%5Bcore%5D/skinchanger) / [fivem-appearance](https://github.com/pedr0fontoura/fivem-appearance) / [illenium-appearance](https://github.com/iLLeniumStudios/illenium-appearance) / [qb-clothing](https://github.com/qbcore-framework/qb-clothing)
 
 ## 📲 Installation
