@@ -24,6 +24,10 @@ Also feel free to make a PR.
 - Commands for faster usage
 - Localization
 - Customizable notifications
+
+## ⏰ Planned Features
+- Bridge system for custom menu integrations.
+- RedM support.
  
 ## 🛠️ Dependencies
 - [ox_lib](https://github.com/overextended/ox_lib)
