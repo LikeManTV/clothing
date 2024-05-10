@@ -414,7 +414,7 @@ CreateThread(function()
             if currentHat == -1 and hasHat then
                 hasHat = false
                 SetPedComponentVariation(cache.ped, 2, currentHair.drawable, currentHair.texture, currentHair.palette)
-            elseif currentHat > -1 and not hasHat then
+            elseif currentHat > -1 and not hasHat and not IsPedSittingInAnyVehicle(cache.ped) then
                 if Config.HatFilter.enabled then
                     if Config.HatFilter.blacklist then
                         for _, id in ipairs(Config.HatFilter.list) do
