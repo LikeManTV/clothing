@@ -191,6 +191,7 @@ RegisterCommand('clothing', function()
 end)
 
 if Config.MenuKey then
+    if Config.UseRadial then return end
     lib.addKeybind({
         name = 'clothing',
         description = _L('menu_title'),
