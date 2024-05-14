@@ -67,12 +67,11 @@ clothing = {
             local isNaked = utils.isNaked()
 
             if not isNaked then clothing.handleUndress('outfit', true) end
-            for k, v in pairs(data) do
-                if v.type == 'comp' then
-                    SetPedComponentVariation(cache.ped, v.index, v.drawable, v.texture, v.palette)
-                elseif v.type == 'prop' then
-                    SetPedPropIndex(cache.ped, v.index, v.drawable, v.texture)
-                end
+            for _, v in pairs(data.comps) do
+                SetPedComponentVariation(cache.ped, v.index, v.drawable, v.texture, v.palette)
+            end
+            for _, v in pairs(data.props) do
+                SetPedPropIndex(cache.ped, v.index, v.drawable, v.texture)
             end
             SetPedComponentVariation(cache.ped, 2, hair, hairTexture, 0)
             appearance.saveSkin()
@@ -88,7 +87,7 @@ clothing = {
                     SetPedComponentVariation(cache.ped, 3, lastArms.d, lastArms.t, 2)
                 end
 
-                for k,v in pairs(data) do
+                for _,v in pairs(data) do
                     SetPedComponentVariation(cache.ped, v.index, v.drawable, v.texture, v.palette)
                     appearance.saveSkin()
                     TriggerServerEvent("clothing:sv:removeItem", data, slot)
@@ -123,14 +122,16 @@ clothing = {
                 }
             }
 
-            for i = 1, 11 do
+            for i = 0, 11 do
                 if i ~= 2 then
-                    outfitData.outfit.comps[i] = {
-                        index = i,
-                        drawable = GetPedDrawableVariation(cache.ped, i),
-                        texture = GetPedTextureVariation(cache.ped, i),
-                        pallete = GetPedPaletteVariation(cache.ped, drawable)
-                    }
+                    if i == 5 and Config.AutomaticBackpack == false then
+                        outfitData.outfit.comps[i] = {
+                            index = i,
+                            drawable = GetPedDrawableVariation(cache.ped, i),
+                            texture = GetPedTextureVariation(cache.ped, i),
+                            pallete = GetPedPaletteVariation(cache.ped, drawable)
+                        }
+                    end
                 end
             end
             

@@ -19,20 +19,20 @@ RegisterServerEvent('clothing:sv:giveOutfit', function(data, outfit)
         metadata['type'] = Config.MarkText
     end
 
-    for k,v in pairs(data.outfit.comps) do
-        metadata[tostring(k)] = {}
-        metadata[tostring(k)]['type'] = 'comp'
-        metadata[tostring(k)]['index'] = v.index
-        metadata[tostring(k)]['drawable'] = v.drawable
-        metadata[tostring(k)]['texture']  = v.texture
-        metadata[tostring(k)]['palette']  = v.palette
+    metadata.comps = {}
+    metadata.props = {}
+    for _,v in pairs(data.outfit.comps) do
+        metadata.comps[v.index] = {}
+        metadata.comps[v.index]['index'] = v.index
+        metadata.comps[v.index]['drawable'] = v.drawable
+        metadata.comps[v.index]['texture']  = v.texture
+        metadata.comps[v.index]['palette']  = v.palette
     end
-    for k,v in pairs(data.outfit.props) do
-        metadata[tostring(k)] = {}
-        metadata[tostring(k)]['type'] = 'prop'
-        metadata[tostring(k)]['index'] = v.index
-        metadata[tostring(k)]['drawable'] = v.drawable
-        metadata[tostring(k)]['texture']  = v.texture
+    for _,v in pairs(data.outfit.props) do
+        metadata.props[v.index] = {}
+        metadata.props[v.index]['index'] = v.index
+        metadata.props[v.index]['drawable'] = v.drawable
+        metadata.props[v.index]['texture']  = v.texture
     end
     Wait(100)
 
@@ -49,12 +49,12 @@ RegisterServerEvent('clothing:sv:giveTorso', function(data)
         metadata['description'] = string.format('%s  \n%s', gender, _L('created_by')..' '..name)
     end
     
-    for k,v in pairs(data.torso) do
-        metadata[tostring(k)] = {}
-        metadata[tostring(k)]['index'] = v.index
-        metadata[tostring(k)]['drawable'] = v.drawable
-        metadata[tostring(k)]['texture']  = v.texture
-        metadata[tostring(k)]['palette']  = v.palette
+    for _,v in pairs(data.torso) do
+        metadata[v.index] = {}
+        metadata[v.index]['index'] = v.index
+        metadata[v.index]['drawable'] = v.drawable
+        metadata[v.index]['texture']  = v.texture
+        metadata[v.index]['palette']  = v.palette
     end
     Wait(100)
 

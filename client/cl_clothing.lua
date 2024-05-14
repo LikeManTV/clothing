@@ -77,29 +77,26 @@ local clothesData = Config.Menu.clothes.options
 for i = 1, 10 do
     local data = clothesData[i]
     if data and i ~= 2 then
-        if i == 5 and Config.AutomaticBackpack then
-           goto continue 
-        end
-
-        if Config.UseRadial then
-            cOptions[#cOptions+1] = {
-                label = _L(data.title),
-                icon = data.icon,
-                onSelect = function()
-                    TriggerEvent('clothing:cl:handleClothes', {index = i})
-                end
-            }
-        else
-            cOptions[#cOptions+1] = {
-                title = _L(data.title),
-                icon = data.icon,
-                onSelect = function()
-                    TriggerEvent('clothing:cl:handleClothes', {index = i})
-                end
-            }
+        if i == 5 and Config.AutomaticBackpack == false then
+            if Config.UseRadial then
+                cOptions[#cOptions+1] = {
+                    label = _L(data.title),
+                    icon = data.icon,
+                    onSelect = function()
+                        TriggerEvent('clothing:cl:handleClothes', {index = i})
+                    end
+                }
+            else
+                cOptions[#cOptions+1] = {
+                    title = _L(data.title),
+                    icon = data.icon,
+                    onSelect = function()
+                        TriggerEvent('clothing:cl:handleClothes', {index = i})
+                    end
+                }
+            end
         end
     end
-    ::continue::
 end
 
 local pOptions = {}
@@ -495,9 +492,7 @@ AddEventHandler('playerDropped', function()
 end)
 
 AddEventHandler('onResourceStop', function(resourceName)
-    if (GetCurrentResourceName() ~= resourceName) then
-      return
-    end
+    if (GetCurrentResourceName() ~= resourceName) then return end
 
     if hasMask then
         Config.MaskFix = false
