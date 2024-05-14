@@ -248,7 +248,7 @@ clothing = {
     end,
 
     handleOutfitPlayer = function()
-        local player = lib.getClosestPlayer(GetEntityCoords(cache.ped), 3.0, true)
+        local player = lib.getClosestPlayer(GetEntityCoords(cache.ped), 3.0, false)
         if player and player ~= cache.playerId then
             local serverId = GetPlayerServerId(player)
             if serverId then
