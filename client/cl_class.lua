@@ -124,14 +124,12 @@ clothing = {
 
             for i = 0, 11 do
                 if i ~= 2 then
-                    if i == 5 and Config.AutomaticBackpack == false then
-                        outfitData.outfit.comps[i] = {
-                            index = i,
-                            drawable = GetPedDrawableVariation(cache.ped, i),
-                            texture = GetPedTextureVariation(cache.ped, i),
-                            pallete = GetPedPaletteVariation(cache.ped, drawable)
-                        }
-                    end
+                    outfitData.outfit.comps[i] = {
+                        index = i,
+                        drawable = GetPedDrawableVariation(cache.ped, i),
+                        texture = GetPedTextureVariation(cache.ped, i),
+                        pallete = GetPedPaletteVariation(cache.ped, drawable)
+                    }
                 end
             end
             
