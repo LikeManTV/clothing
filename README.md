@@ -50,6 +50,14 @@ Also feel free to make a PR.
 	allowArmed = false,
 	client = {
 		export = 'clothing.clothes'
+	},
+	buttons = {
+		{
+			label = 'Tear',
+			action = function(slot)
+				TriggerServerEvent('clothing:sv:tearClothes', slot)
+			end
+		}
 	}
 },
 
@@ -64,6 +72,12 @@ Also feel free to make a PR.
 			label = 'Rename',
 			action = function(slot)
 				TriggerServerEvent('clothing:sv:renameOutfit', slot)
+			end
+		},
+		{
+			label = 'Tear',
+			action = function(slot)
+				TriggerServerEvent('clothing:sv:tearClothes', slot)
 			end
 		}
 	}
