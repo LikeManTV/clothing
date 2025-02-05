@@ -215,11 +215,11 @@ Config.DefaultPlayerClothes = {
             [11] = { index = 11, drawable = 15, texture = 0 } -- Jacket
         },
         Props = {
-            [0] = { index = 1, drawable = -1, texture = -1 }, -- Hat
-            [1] = { index = 2, drawable = -1, texture = -1 }, -- Glasses
-            [2] = { index = 3, drawable = -1, texture = -1 }, -- Ear accessory
-            [6] = { index = 3, drawable = -1, texture = -1 }, -- Watch
-            [7] = { index = 3, drawable = -1, texture = -1 } -- Bracelet
+            [0] = { index = 0, drawable = -1, texture = -1 }, -- Hat
+            [1] = { index = 1, drawable = -1, texture = -1 }, -- Glasses
+            [2] = { index = 2, drawable = -1, texture = -1 }, -- Ear accessory
+            [6] = { index = 6, drawable = -1, texture = -1 }, -- Watch
+            [7] = { index = 7, drawable = -1, texture = -1 } -- Bracelet
         }
     },
     Female = {
@@ -236,11 +236,11 @@ Config.DefaultPlayerClothes = {
             [11] = { index = 11, drawable = 17, texture = 0 } -- Jacket
         },
         Props = {
-            [0] = { index = 1, drawable = -1, texture = -1 }, -- Hat
-            [1] = { index = 2, drawable = -1, texture = -1 }, -- Glasses
-            [2] = { index = 3, drawable = -1, texture = -1 }, -- Ear accessory
-            [6] = { index = 3, drawable = -1, texture = -1 }, -- Watch
-            [7] = { index = 3, drawable = -1, texture = -1 } -- Bracelet
+            [0] = { index = 0, drawable = -1, texture = -1 }, -- Hat
+            [1] = { index = 1, drawable = -1, texture = -1 }, -- Glasses
+            [2] = { index = 2, drawable = -1, texture = -1 }, -- Ear accessory
+            [6] = { index = 6, drawable = -1, texture = -1 }, -- Watch
+            [7] = { index = 7, drawable = -1, texture = -1 } -- Bracelet
         }
     }
 }
