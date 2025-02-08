@@ -159,6 +159,17 @@ if Config.UseRadial then
         id = 'clothing_menu-props',
         items = pOptions
     })
+
+    if Config.AddGlobalRadialOption then
+        lib.addRadialItem({
+            {
+                id = 'clothing',
+                label = _L('menu_title'),
+                icon = 'shirt',
+                menu = 'clothing_menu'
+            }
+        })
+    end
 else
     lib.registerContext({
         id = 'clothing_menu',
