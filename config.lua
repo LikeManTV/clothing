@@ -3,6 +3,7 @@ Config = {}
 Config.Language = 'en' -- Select your language here. [en / cs]
 Config.MenuKey = false -- Configure the default key to open clothing menu (false to disable).
 Config.UseRadial = false -- If true the radial menu will be used otherwise the context menu.
+Config.AddGlobalRadialOption = true -- If true the global radial menu will have an option to open clothing menu.
 
 Config.PlayerWontLoseProps = true -- Should player lose props (hat, glasses) on damage or not?
 Config.OutfitRenaming = true -- Should the option to rename outfits be enabled?
