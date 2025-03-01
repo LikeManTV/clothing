@@ -165,6 +165,8 @@ clothing = {
                 clothing.setDefaultPropVariation({ isAnimated = false, sex = gender, index = 0 })
                 clothing.setDefaultPropVariation({ isAnimated = false, sex = gender, index = 1 })
                 clothing.setDefaultPropVariation({ isAnimated = false, sex = gender, index = 2 })
+                clothing.setDefaultPropVariation({ isAnimated = false, sex = gender, index = 6 })
+                clothing.setDefaultPropVariation({ isAnimated = false, sex = gender, index = 7 })
                 SetPedComponentVariation(cache.ped, 2, hair, hairTexture, 0)
                 TriggerServerEvent("clothing:sv:giveOutfit", outfitData, outfitLabel)
             else
