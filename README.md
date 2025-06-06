@@ -1,3 +1,7 @@
+## ⚠️ Upcoming Rework
+We are currently working on a comprehensive rework of the system to address several known issues and improve overall performance, reliability, and usability.
+Stay tuned for more updates soon!
+
 # CLOTHING
 [![GitHub release](https://img.shields.io/github/v/release/LikeManTV/clothing.svg)](https://github.com/LikeManTV/clothing/releases/latest)
 [![GitHub license](https://img.shields.io/github/license/LikeManTV/clothing.svg)](LICENSE)
